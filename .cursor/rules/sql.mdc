@@ -1,0 +1,15 @@
+---
+description: SQL style, indexes, and migration rules for Nexus Postgres.
+globs: "**/*.{sql,sql.ts}"
+alwaysApply: false
+---
+
+# SQL
+
+- `snake_case`. PK `id uuid`. Tenant tables: `tenant_id uuid not null`.
+- Parameterized queries only. `timestamptz`, never `timestamp`.
+- New table: RLS + `FORCE ROW LEVEL SECURITY` + policies in the **same** migration.
+- Indexes ship with the query they serve. GiST geo, GIN fts/jsonb, HNSW vectors.
+- `UNLOGGED` only if a SQL rebuild function exists in the same change.
+- Hot queries: CTEs, windows, `LATERAL` allowed; keep one statement for search.
+- Comment non-obvious locks (`FOR UPDATE`, `pg_advisory_xact_lock`) with the invariant.

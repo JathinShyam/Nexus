@@ -1,0 +1,36 @@
+# Normalize text; keep LF in the repo
+* text=auto eol=lf
+
+*.md text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.sql text eol=lf
+*.mdc text eol=lf
+*.toml text eol=lf
+*.env.example text eol=lf
+
+# Scripts
+*.sh text eol=lf
+
+# Lockfiles: keep as-is
+pnpm-lock.yaml text eol=lf
+package-lock.json text eol=lf
+
+# Binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary

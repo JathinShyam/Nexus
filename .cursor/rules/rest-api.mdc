@@ -1,0 +1,16 @@
+---
+description: REST /v1 envelope, status codes, and pagination for Nexus.
+globs: apps/api/src/{http,modules}/**/*.ts
+alwaysApply: false
+---
+
+# REST /v1
+
+Success: `{ data, meta: { requestId, pagination? } }`. Errors: `{ error: { code, message, details }, meta }`.
+
+- Prefix `/v1`. No GraphQL. Cursor pagination — no `offset` on lists.
+- Cross-tenant or RLS miss → `404 NOT_FOUND` (not 403).
+- Capacity / idempotency mismatch → `409` with TRD codes.
+- POST bookings require `Idempotency-Key`.
+- Geo query: `lat`, `lng`, `radiusM`; bbox `w,s,e,n`.
+- Auth: Bearer JWT. Tenant only from token (`tid`), never `X-Tenant-Id`.

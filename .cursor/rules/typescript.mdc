@@ -1,0 +1,15 @@
+---
+description: TypeScript and Fastify module conventions for the Nexus API.
+globs: apps/api/**/*.{ts,mts}
+alwaysApply: false
+---
+
+# TypeScript (API)
+
+- `strict` + `noUncheckedIndexedAccess`. No `any`. Narrow `unknown` at boundaries.
+- One module per bounded context: `src/modules/<name>/` (routes, sql, schemas).
+- Routes: Fastify plugin + schema. Validate query/body/params; never read `request.body` untyped.
+- DB: only via `src/db` helpers. Writes and RLS reads go through `withRls(ctx, fn)`.
+- Map DB rows → JSON in one mapper per resource. Do not leak `snake_case` in responses.
+- Errors: throw `AppError(code, status)` from TRD; no raw `Error` for expected failures.
+- No Prisma, TypeORM, Sequelize, Drizzle schema-as-source.

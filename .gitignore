@@ -1,0 +1,61 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+
+# Builds & caches
+dist/
+build/
+coverage/
+.turbo/
+.cache/
+*.tsbuildinfo
+
+# Env & secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs & debug
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test / tooling
+.vitest/
+playwright-report/
+test-results/
+.nyc_output/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+*.swp
+*.swo
+*~
+
+# Local editor history (not source)
+.history/
+
+# Docker / local data
+deploy/postgres/data/
+*.sql.gz
+dump.sql
+
+# Perf / load artifacts (generated)
+docs/perf/*.html
+docs/perf/k6-*.json
+
+# Misc
+tmp/
+temp/
+.direnv/
+.venv/

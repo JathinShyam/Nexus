@@ -1,0 +1,16 @@
+---
+description: Nexus core constraints, stack, and phase discipline. Apply in every session.
+alwaysApply: true
+---
+
+# Nexus core
+
+Read `AGENTS.md`, then the lowest open phase in `docs/ROADMAP.md`. Implement that phase only.
+
+- Postgres-only. No Redis, Elasticsearch, Pinecone, Mongo, Prisma, GraphQL, tRPC, Nest.
+- Stack: Fastify 5, TypeScript strict, postgres.js, REST `/v1`, SQL migrations.
+- Isolation: transaction + `set_config(..., true)` for `app.tenant_id`, `app.user_id`, `app.role`. RLS is the control plane.
+- IDs: UUIDv7. DB `snake_case`, JSON `camelCase`. `timestamptz` UTC. Money: integer minor units.
+- Check roadmap boxes only when code + tests exist. Do not commit unless asked.
+
+Conflicts between docs → stop and tell the user; do not guess.
