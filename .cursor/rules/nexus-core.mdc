@@ -12,5 +12,6 @@ Read `AGENTS.md`, then the lowest open phase in `docs/ROADMAP.md`. Implement tha
 - Isolation: transaction + `set_config(..., true)` for `app.tenant_id`, `app.user_id`, `app.role`. RLS is the control plane.
 - IDs: UUIDv7. DB `snake_case`, JSON `camelCase`. `timestamptz` UTC. Money: integer minor units.
 - Check roadmap boxes only when code + tests exist. Do not commit unless asked.
+- Never add `Co-authored-by: Cursor`, `Made-with: Cursor`, or any Cursor attribution trailer to commits or PRs.
 
 Conflicts between docs → stop and tell the user; do not guess.

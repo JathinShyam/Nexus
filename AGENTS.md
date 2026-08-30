@@ -25,6 +25,7 @@ Build a Postgres-only Fastify REST API. Every major capability (geo, FTS, vector
 - **Phase discipline.** Finish the current phase’s exit criteria before starting the next. Do not scaffold Phase 7 observability while Phase 1 RLS is incomplete.
 - **No secrets in git.** `.env` stays local; `.env.example` has names only.
 - **Do not commit** unless the user asks.
+- **No Cursor attribution.** Never add `Co-authored-by: Cursor <cursoragent@cursor.com>`, `Made-with: Cursor`, or similar trailers to commits or PRs.
 
 ## Phase execution
 
