@@ -1,0 +1,38 @@
+name: ci
+
+on:
+  push:
+    branches: [main, phase-0]
+  pull_request:
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Typecheck
+        run: pnpm typecheck
+      - name: Lint
+        run: pnpm lint
+      - name: Start Postgres
+        run: |
+          cp .env.example .env
+          docker compose --env-file .env -f deploy/docker-compose.yml up -d --build --wait
+      - name: Migrate
+        run: pnpm migrate
+        env:
+          DATABASE_MIGRATE_URL: postgres://nexus_migrator:nexus_migrator@localhost:5432/nexus
+      - name: Test
+        run: pnpm test
+        env:
+          DATABASE_URL: postgres://nexus_app:nexus_app@localhost:5432/nexus

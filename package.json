@@ -1,0 +1,18 @@
+{
+  "name": "nexus",
+  "private": true,
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter api dev",
+    "build": "pnpm --filter api build",
+    "start": "pnpm --filter api start",
+    "lint": "pnpm --filter api lint",
+    "typecheck": "pnpm --filter api typecheck",
+    "test": "pnpm --filter api test",
+    "migrate": "pnpm --filter api migrate",
+    "migrate:down": "pnpm --filter api migrate:down"
+  }
+}

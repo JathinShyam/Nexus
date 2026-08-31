@@ -18,43 +18,43 @@
 ### Checklist
 
 **Repo**
-- [ ] `[T]` pnpm workspace with `apps/api`
-- [ ] `[T]` TypeScript `strict`, `noUncheckedIndexedAccess`
-- [ ] `[T]` `.env.example` with all TRD variables
-- [ ] `[T]` `.gitignore` (node, env, IDE)
-- [ ] `[T]` Validation library chosen (TypeBox **or** Zod) and used on health if applicable
-- [ ] `[T]` Lint + format scripts (`pnpm lint`, `pnpm typecheck`)
+- [x] `[T]` pnpm workspace with `apps/api`
+- [x] `[T]` TypeScript `strict`, `noUncheckedIndexedAccess`
+- [x] `[T]` `.env.example` with all TRD variables
+- [x] `[T]` `.gitignore` (node, env, IDE)
+- [x] `[T]` Validation library chosen (TypeBox **or** Zod) and used on health if applicable
+- [x] `[T]` Lint + format scripts (`pnpm lint`, `pnpm typecheck`)
 
 **Compose**
-- [ ] `[T]` `deploy/docker-compose.yml`: Postgres 16+ with PostGIS
-- [ ] `[T]` Init: `CREATE EXTENSION` for `postgis`, `vector`, `pg_trgm`, `pg_stat_statements`, `pgcrypto` (or equivalent); `pg_cron` if image allows (document if not)
-- [ ] `[T]` Init: roles `nexus_migrator`, `nexus_app` (passwords via env)
-- [ ] `[T]` Named volume for PG data
-- [ ] `[T]` API service optional in Compose **or** run API on host against published 5432 — pick one, document in README
+- [x] `[T]` `deploy/docker-compose.yml`: Postgres 16+ with PostGIS
+- [x] `[T]` Init: `CREATE EXTENSION` for `postgis`, `vector`, `pg_trgm`, `pg_stat_statements`, `pgcrypto` (or equivalent); `pg_cron` if image allows (document if not)
+- [x] `[T]` Init: roles `nexus_migrator`, `nexus_app` (passwords via env)
+- [x] `[T]` Named volume for PG data
+- [x] `[T]` API service optional in Compose **or** run API on host against published 5432 — pick one, document in README
 
 **API skeleton**
-- [ ] `[T]` Fastify 5 app entry, graceful shutdown
-- [ ] `[T]` `GET /v1/health` → 200 `{ data: { status: "ok" } }`
-- [ ] `[T]` `GET /v1/ready` → 200 if `SELECT 1` works, else 503
-- [ ] `[T]` JSON error handler matching TRD envelope
-- [ ] `[T]` `requestId` on every response (`X-Request-Id` + `meta.requestId`)
-- [ ] `[T]` postgres.js pool from `DATABASE_URL`
+- [x] `[T]` Fastify 5 app entry, graceful shutdown
+- [x] `[T]` `GET /v1/health` → 200 `{ data: { status: "ok" } }`
+- [x] `[T]` `GET /v1/ready` → 200 if `SELECT 1` works, else 503
+- [x] `[T]` JSON error handler matching TRD envelope
+- [x] `[T]` `requestId` on every response (`X-Request-Id` + `meta.requestId`)
+- [x] `[T]` postgres.js pool from `DATABASE_URL`
 
 **Migrations**
-- [ ] `[T]` node-pg-migrate wired (`pnpm --filter api migrate`)
-- [ ] `[T]` Baseline migration: extensions + roles grants as needed (if not all in init)
-- [ ] `[T]` README local-run commands updated from placeholders
+- [x] `[T]` node-pg-migrate wired (`pnpm --filter api migrate`)
+- [x] `[T]` Baseline migration: extensions + roles grants as needed (if not all in init)
+- [x] `[T]` README local-run commands updated from placeholders
 
 **Tests**
-- [ ] `[T]` Vitest runs
-- [ ] `[T]` Health test (no DB required)
-- [ ] `[T]` Ready test against Testcontainers or Compose Postgres
+- [x] `[T]` Vitest runs
+- [x] `[T]` Health test (no DB required)
+- [x] `[T]` Ready test against Testcontainers or Compose Postgres
 
 ### Exit criteria
 
-- `docker compose up` yields a healthy Postgres with `postgis` and `vector` (`\dx`).
-- `curl /v1/health` and `/v1/ready` behave as specified.
-- CI job (or documented local equivalent) runs typecheck + tests.
+- [x] `docker compose up` yields a healthy Postgres with `postgis` and `vector` (`\dx`).
+- [x] `curl /v1/health` and `/v1/ready` behave as specified.
+- [x] CI job (or documented local equivalent) runs typecheck + tests.
 
 ### Out of scope
 
