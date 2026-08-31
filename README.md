@@ -4,7 +4,7 @@ Production-grade, **Postgres-only** backend for a Local Experiences & Intelligen
 
 This repository is the system a senior SDE would own end-to-end: schema, API, performance, security, and operations. There is no Redis, Elasticsearch, Pinecone, MongoDB, or external scheduler.
 
-**Status:** documentation and agent toolchain (Phase 0 not started). Implementation follows [`docs/ROADMAP.md`](docs/ROADMAP.md) strictly.
+**Status:** Phase 0 complete on branch `phase-0`. Next: Phase 1 (identity + RLS). See [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ---
 
@@ -137,21 +137,46 @@ docs/
 .cursor/                  # skills, agents, rules
 ```
 
-Until Phase 0 lands, this repo is documentation + Cursor configuration only.
+**Phase 0 spine is implemented** on branch `phase-0`: Compose Postgres (PostGIS + pgvector + …), Fastify `/v1/health` + `/v1/ready`, migrations, Vitest.
+
+**Runtime choice:** Postgres runs in Docker; the API runs on the host against published `5432` (not an API container in Phase 0).
+
+**Validation:** TypeBox (Fastify type provider). **Lint:** oxlint.
 
 ---
 
-## Local run (after Phase 0)
+## Local run
 
 ```bash
 cp .env.example .env
-docker compose -f deploy/docker-compose.yml up -d --wait
-pnpm --filter api migrate up
-pnpm --filter api dev
-# GET http://localhost:3000/v1/health
+corepack enable && corepack prepare pnpm@9.15.9 --activate
+pnpm install
+
+# Postgres with extensions + nexus_app / nexus_migrator roles
+docker compose --env-file .env -f deploy/docker-compose.yml up -d --build --wait
+
+# Baseline migration (grants; extensions come from Compose init)
+pnpm migrate
+
+pnpm dev
+# curl -s http://localhost:3000/v1/health
+# curl -s http://localhost:3000/v1/ready
 ```
 
-Exact commands are added when the API package exists. Do not invent a second compose stack.
+Verify extensions:
+
+```bash
+docker compose -f deploy/docker-compose.yml exec postgres \
+  psql -U postgres -d nexus -c '\dx'
+```
+
+Tests (health unit + ready via Testcontainers):
+
+```bash
+pnpm typecheck && pnpm lint && pnpm test
+```
+
+CI: `.github/workflows/ci.yml` runs typecheck, lint, and tests on `main` / `phase-0`.
 
 ---
 
